@@ -1,20 +1,27 @@
 var sigla;
-var button;
+var video;
+var onButton;
+var offButton;
 var amp;
+var logo;
+
 
 function preload() {
-  // put preload code here
+  logo = loadImage("logo.png");
+
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(0);
+
 
   sigla = loadSound("TG1_new.mp3", loaded);
 
-  button = createButton("Play");
-  button.mousePressed(loaded);
-  button.position(width / 2 - 17, height - 100);
+  onButton = createButton("On Air");
+  offButton = createButton("Off Camera");
+  onButton.mousePressed(loaded);
+  onButton.position(width / 2 - 60, height - 100);
+  offButton.position(width / 2 + 10, height - 100);
 
   amp = new p5.Amplitude();
 
@@ -25,12 +32,13 @@ function loaded() {
 }
 
 function draw() {
+    background(0);
 
   var vol = amp.getLevel();
-  var diam = map(vol, 0, 0.7, 10, 200);
+  var diam = map(vol, 0, 0.7, 100, 1000);
 
-  ellipseMode(CENTER),
-  fill(255, 0, 255);
-  ellipse(width / 2, height / 2, diam);
+  imageMode(CENTER),
+  image(logo, width / 2, height / 2, diam, diam,);
   sigla.setVolume(0.7);
+
 }
